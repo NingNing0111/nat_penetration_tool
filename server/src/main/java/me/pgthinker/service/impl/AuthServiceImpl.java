@@ -27,10 +27,13 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
+
+    private final static Map<String, String> AUTH_RESULT_SET = new HashMap<>();
+
     private final ServerConfig serverConfig;
 
     @Override
-    public TransferDataMessage auth(String password,String clientId) {
+    public TransferDataMessage authPassword(String password,String clientId) {
         String encryptedPassword = serverConfig.getEncryptedPassword();
         boolean isEq = BCrypt.checkpw(password, encryptedPassword);
 
@@ -40,9 +43,9 @@ public class AuthServiceImpl implements AuthService {
             cmdType = CmdType.AUTH_OK;
             // 构建通讯的授权密钥
             licenseKey = MD5.create().digestHex16(clientId + password);
+            // 存储 clientId: licenseKey
+            AUTH_RESULT_SET.put(clientId, licenseKey);
         }
-
-        // TODO: 存储 clientId: licenseKey
 
         // 创建MetaData
         Map<String, String> data = new HashMap<>();
@@ -59,4 +62,26 @@ public class AuthServiceImpl implements AuthService {
                 .build();
         return message;
     }
+
+    @Override
+    public String getLicenseKey(String clientId) {
+        return AUTH_RESULT_SET.get(clientId);
+    }
+
+    @Override
+    public TransferDataMessage authLicenseKey(String clientId, String licenseKey) {
+        TransferDataMessage message = null;
+        if(AUTH_RESULT_SET.containsKey(clientId) && AUTH_RESULT_SET.get(clientId).contentEquals(licenseKey)){
+            message = TransferDataMessage.newBuilder()
+                    .setCmdType(CmdType.AUTH_OK)
+                    .build();
+        }else{
+            message = TransferDataMessage.newBuilder()
+                    .setCmdType(CmdType.AUTH_ERR)
+                    .build();
+        }
+        return message;
+    }
+
+
 }

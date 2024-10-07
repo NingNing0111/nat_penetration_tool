@@ -35,8 +35,5 @@ public class ClientServer {
                 .handler(new ClientInitializer())
                 .connect(serverHost, serverPort)
                 .sync();
-
-
-
     }
 }

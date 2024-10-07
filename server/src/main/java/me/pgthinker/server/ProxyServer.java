@@ -1,6 +1,7 @@
 package me.pgthinker.server;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -11,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import me.pgthinker.initializer.ServerInitializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Project: me.pgthinker.server
@@ -24,8 +28,6 @@ public class ProxyServer {
 
     @Value("${server.port}")
     private Integer serverPort;
-
-
 
     @PostConstruct
     public void runProxyServer() throws InterruptedException {

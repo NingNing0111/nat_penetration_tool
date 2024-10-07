@@ -11,5 +11,5 @@ import java.util.List;
  * @Description:
  */
 public interface ProxyInfoService {
-    List<TransferDataMessage> getProxiesMessage();
+    List<TransferDataMessage> getProxiesMessage(String licenseKey);
 }

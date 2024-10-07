@@ -9,5 +9,9 @@ import me.pgthinker.message.TransferDataMessageProto.TransferDataMessage;
  * @Description:
  */
 public interface AuthService {
-    TransferDataMessage auth(String password, String clientId);
+    TransferDataMessage authPassword(String password, String clientId);
+
+    String getLicenseKey(String clientId);
+
+    TransferDataMessage authLicenseKey(String clientId, String licenseKey);
 }

@@ -1,16 +1,16 @@
 client:
   serverHost: localhost
   serverPort: 8867
-  password: 123123123
+  password: 123123
   proxies:
     - host: localhost
       port: 4456
       protocol: tcp
       open-port: 8890
-    - host: localhost
-      port: 4457
-      protocol: udp
-      open-port: 8891
+#    - host: localhost
+#      port: 4457
+#      protocol: udp
+#      open-port: 8891
 
 
 

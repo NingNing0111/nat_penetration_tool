@@ -15,10 +15,10 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>webApp</module>
         <module>server</module>
         <module>client</module>
         <module>core</module>
+        <module>webDemo</module>
     </modules>
 
     <properties>

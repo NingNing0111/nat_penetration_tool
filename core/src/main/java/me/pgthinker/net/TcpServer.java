@@ -4,6 +4,7 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Project: me.pgthinker.net
@@ -11,6 +12,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @Date: 2024/10/7 18:33
  * @Description: Tcp服务实例
  */
+@Slf4j
 public class TcpServer {
 
     private Channel channel;
@@ -31,6 +33,7 @@ public class TcpServer {
                 workerGroup.shutdownGracefully();
                 bossGroup.shutdownGracefully();
             });
+            log.info("started proxy server: {}", port);
         } catch (Exception e) {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();

@@ -6,12 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @Project: me.pgthinker
  * @Author: De Ning
- * @Date: 2024/10/3 22:14
+ * @Date: 2024/10/7 23:34
  * @Description:
  */
 @SpringBootApplication
-public class WebApp {
+public class WebAppDemo {
     public static void main(String[] args) {
-        SpringApplication.run(WebApp.class,args);
+        SpringApplication.run(WebAppDemo.class,args);
     }
 }

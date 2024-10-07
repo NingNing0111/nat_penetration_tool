@@ -3,9 +3,9 @@ package me.pgthinker.service.impl;
 import com.google.protobuf.ByteString;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.pgthinker.ProxyConfig;
 import me.pgthinker.common.Constants;
 import me.pgthinker.config.ClientConfig;
-import me.pgthinker.config.ProxyConfig;
 import me.pgthinker.message.TransferDataMessageProto.TransferDataMessage;
 import me.pgthinker.message.TransferMessageMetaDataProto.TransferMessageMetaData;
 import me.pgthinker.enums.CmdTypeProto.CmdType;
@@ -30,7 +30,7 @@ public class ProxyInfoServiceImpl implements ProxyInfoService {
     private final ClientConfig clientConfig;
 
     @Override
-    public List<TransferDataMessage> getProxiesMessage() {
+    public List<TransferDataMessage> getProxiesMessage(String licenseKey) {
         List<ProxyConfig> proxies = clientConfig.getProxies();
         List<TransferDataMessage> messages = proxies.stream().map(item -> {
 
@@ -39,6 +39,8 @@ public class ProxyInfoServiceImpl implements ProxyInfoService {
             data.put(Constants.PROXY_HOST, item.getHost());
             data.put(Constants.PROXY_PORT, item.getPort().toString());
             data.put(Constants.OPEN_PORT, item.getOpenPort().toString());
+            data.put(Constants.CLIENT_ID, clientConfig.getClientId());
+            data.put(Constants.LICENSE_KEY, licenseKey);
 
             TransferMessageMetaData metaData = TransferMessageMetaData.newBuilder()
                     .putAllMetaData(data)
