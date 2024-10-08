@@ -54,8 +54,10 @@ public class ProxyTunnelServiceImpl implements ProxyTunnelService {
 
                     @Override
                     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-                        Channel channel = ctx.channel();
-                        PROXY_PORT_MAP.put(proxyConfig.getOpenPort(), channel);
+                        if(!PROXY_PORT_MAP.containsKey(clientId)){
+                            Channel channel = ctx.channel();
+                            PROXY_PORT_MAP.put(proxyConfig.getOpenPort(), channel);
+                        }
                     }
                 });
 

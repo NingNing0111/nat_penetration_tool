@@ -68,5 +68,13 @@ public class ClientHandler extends SimpleChannelInboundHandler<TransferDataMessa
 
     }
 
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        // 处理异常
+        log.info("e:{}",cause.getMessage());
+
+        ctx.close(); // 关闭通道
+    }
+
 
 }

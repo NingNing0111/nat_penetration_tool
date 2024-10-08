@@ -40,4 +40,12 @@ public class TCPConnectTunnelHandler extends SimpleChannelInboundHandler<ByteBuf
         log.info("Nat connect handler init...");
         log.info("Nat Host:{} Port: {} ", proxyConfig.getHost(),proxyConfig.getPort());
     }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        // 处理异常
+        log.info("e:{}",cause.getMessage());
+
+        ctx.close(); // 关闭通道
+    }
 }
